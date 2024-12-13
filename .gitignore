@@ -2,7 +2,7 @@ pyuic
 setpaths.sh
 # Byte-compiled / optimized / DLL files
 __pycache__/
-# *.py[cod]
+*.py[cod]
 
 # automake stuff
 *.Plo
