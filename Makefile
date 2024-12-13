@@ -38,12 +38,21 @@ endif
 
 ifeq ($(OS),Darwin)
 # Mac
-ifndef RELEASE
-CHIMERAX_APP ?= /Applications/ChimeraX_Daily.app
+CHIMERAX_DAILY = /Applications/ChimeraX_Daily.app
+CHIMERAX_REGULAR = /Applications/ChimeraX.app
+CHIMERAX_VERSIONED = $(shell ls -d /Applications/ChimeraX-*.app 2>/dev/null | sort -V | tail -n 1)
+
+ifneq ("$(wildcard $(CHIMERAX_DAILY))","")
+CHIMERAX_APP ?= $(CHIMERAX_DAILY)
+else ifneq ("$(wildcard $(CHIMERAX_REGULAR))","")
+CHIMERAX_APP ?= $(CHIMERAX_REGULAR)
+else ifneq ($(CHIMERAX_VERSIONED),)
+CHIMERAX_APP ?= $(CHIMERAX_VERSIONED)
 else
-CHIMERAX_APP ?= /Applications/ChimeraX.app
+$(error No ChimeraX installation found in /Applications)
 endif
 endif
+
 # Platform-dependent settings.  Should not need fixing.
 # For Windows, we assume Cygwin is being used.
 ifeq ($(OS),Windows)

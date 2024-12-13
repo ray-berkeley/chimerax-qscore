@@ -1,16 +1,16 @@
 # vim: set expandtab shiftwidth=4 softtabstop=4:
 
 
-__version__ = 1.1
+from .__version__ import __version__
 
 from chimerax.core.toolshed import BundleAPI
 
 
 class _MyAPI(BundleAPI):
 
-    api_version = 1     # register_command called with BundleInfo and
-                        # CommandInfo instance instead of command name
-                        # (when api_version==0)
+    api_version = 1  # register_command called with BundleInfo and
+    # CommandInfo instance instead of command name
+    # (when api_version==0)
 
     # Override method for registering commands
     @staticmethod
@@ -25,15 +25,17 @@ class _MyAPI(BundleAPI):
         # module.
         from . import cmd
         from chimerax.core.commands import register
+
         desc = cmd.qscore_desc
         if desc.synopsis is None:
             desc.synopsis = ci.synopsis
         register(ci.name, desc, cmd.qscore)
-    
+
     @staticmethod
     def start_tool(session, bundle_info, tool_info):
         from chimerax.core import tools
         from .tool import QScore_ToolUI
+
         return tools.get_singleton(session, QScore_ToolUI, tool_info.name, create=True)
 
 
