@@ -11,14 +11,6 @@ In a terminal, clone this repo using the following command:
 ```bash
 # clone this repo
 $ git clone https://github.com/ray-berkeley/chimerax-qscore.git
-
-# For Windows or Linux, remove the MacOS binary from src/ and 
-# add the appropriate binary. For MacOS, skip this step and go
-# straight to ChimeraX 
-cd chimerax-qscore
-rm src/_kmeans.cpython-311-darwin.so
-mv bin/_kmeans.cpython-311-x86_64-linux-gnu.so src/   # Linux
-mv bin/_kmeans.cp311-win_amd64.pyd src/               # Windows
 ```
 
 In ChimeraX, run the following command:
@@ -27,3 +19,19 @@ In ChimeraX, run the following command:
 devel install /path/to/chimerax-qscore/
 ```
 
+## Finding binaries for other platforms
+
+Linux or Windows binaries can be found in the [QScore Bundle in the ChimeraX Toolshed](https://cxtoolshed.rbvi.ucsf.edu/apps/chimeraxqscore). Download the bundle for your platform, unzip it, and move the binary to src:
+
+```bash
+cd /download/path
+
+unzip ./ChimeraX_QScore-1.1-cp311-cp311-linux_x86_64.whl
+cp ChimeraX/qscore/_kmeans.cpython-311-x86_64-linux-gnu.so /path/to/chimerax-qscore/src/
+```
+
+Then install like before in the ChimeraX command line:
+
+```
+devel install /path/to/chimerax-qscore/
+```
